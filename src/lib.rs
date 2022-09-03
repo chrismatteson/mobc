@@ -318,6 +318,7 @@ impl<M: Manager> Pool<M> {
             let closing = internals.free_conns.split_off(max_idle);
             internals.max_idle_closed += closing.len() as u64;
             for conn in closing {
+                println!("321");
                 conn.close(&mut internals);
             }
         }
@@ -449,10 +450,11 @@ impl<M: Manager> Pool<M> {
         internals: &MutexGuard<'_, PoolInternals<M::Connection, M::Error>>,
         conn: &mut Conn<M::Connection, M::Error>,
     ) -> bool {
+        println!("validate_conn");
         if conn.brand_new {
             return true;
         }
-/*
+
         if conn.expired(internals.config.max_lifetime) {
             return false;
         }
@@ -473,7 +475,7 @@ impl<M: Manager> Pool<M> {
                 }
                 Err(_e) => return false,
             }
-        }*/
+        }
         true
     }
 
@@ -503,6 +505,7 @@ impl<M: Manager> Pool<M> {
                 permit.forget();
                 return Ok(conn);
             } else {
+                println!("507")
                 conn.close(&mut internals);
             }
         }
@@ -579,6 +582,7 @@ async fn put_conn<M: Manager>(
         conn.brand_new = false;
         put_idle_conn(shared, internals, conn);
     } else {
+        println!("583");
         conn.close(&mut internals);
     }
 
@@ -610,6 +614,7 @@ fn put_idle_conn<M: Manager>(
         internals.free_conns.push(conn)
     } else {
         internals.max_idle_closed += 1;
+        println!("615");
         conn.close(&mut internals)
     }
 }
@@ -677,6 +682,7 @@ async fn clean_connection<M: Manager>(shared: &Weak<SharedPool<M>>) -> bool {
 
     internals.max_lifetime_closed += closing.len() as u64;
     for conn in closing {
+        println!("683");
         conn.close(&mut internals);
     }
     true
