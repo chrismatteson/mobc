@@ -478,9 +478,9 @@ impl<M: Manager> Pool<M> {
                     }
                     continue;
                 }
+                Err(PoolClosed) => todo!(),
                 Err(err) => return Err(err),
             }
-            Err(PoolClosed) => todo!(),
         }
     }
 
