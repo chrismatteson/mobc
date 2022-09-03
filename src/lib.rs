@@ -452,7 +452,7 @@ impl<M: Manager> Pool<M> {
         if conn.brand_new {
             return true;
         }
-
+/*
         if conn.expired(internals.config.max_lifetime) {
             return false;
         }
@@ -473,7 +473,7 @@ impl<M: Manager> Pool<M> {
                 }
                 Err(_e) => return false,
             }
-        }
+        }*/
         true
     }
 
