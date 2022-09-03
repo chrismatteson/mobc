@@ -415,7 +415,7 @@ impl<M: Manager> Pool<M> {
             } else {
                 (None, None)
             };
-        let (opener_ch_sender, mut opener_ch): (futures_channel::mpsc::Sender<T>, futures_channel::mpsc::Receiver<T>) = mpsc::channel(max_open);
+        //let (opener_ch_sender, mut opener_ch): (futures_channel::mpsc::Sender<T>, futures_channel::mpsc::Receiver<T>) = mpsc::channel(max_open);
 
         let (share_config, internal_config) = config.split();
         let internals = Mutex::new(PoolInternals {
