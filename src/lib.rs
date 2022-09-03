@@ -480,6 +480,7 @@ impl<M: Manager> Pool<M> {
                 }
                 Err(err) => return Err(err),
             }
+            Err(PoolClosed) => todo!()
         }
     }
 
