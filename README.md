@@ -97,10 +97,15 @@ Sets the maximum idle connection count maintained by the pool. The pool will mai
 #### max_lifetime
 
 Sets the maximum lifetime of connections in the pool. Expired connections may be closed lazily before reuse.
+>None means reuse forever, defaults to None.
 
-> None meas reuse forever, defaults to None.
+#### max_idle_lifetime
+Sets the maximum idle lifetime of connections in the pool. Expired connections may be closed lazily before reuse.
+>None means reuse forever, defaults to None.
 
 #### get_timeout
+Sets the get timeout used by the pool. Calls to Pool::get will wait this long for a connection to become available before returning an error. 
+>None means never timeout, defaults to 30 seconds.
 
 Sets the get timeout used by the pool. Calls to Pool::get will wait this long for a connection to become available before returning an error.
 
@@ -110,20 +115,21 @@ Sets the get timeout used by the pool. Calls to Pool::get will wait this long fo
 
 Some of the connection pool configurations can be adjusted dynamically. Each connection pool instance has the following methods:
 
-- set_max_open_conns
-- set_max_idle_conns
-- set_conn_max_lifetime
+* set_max_open_conns
+* set_max_idle_conns
+* set_conn_max_lifetime
+* set_conn_max_idle_lifetime
 
 ## Stats
-
-- max_open - Maximum number of open connections to the database.
-- connections - The number of established connections both in use and idle.
-- in_use - The number of connections currently in use.
-- idle - The number of idle connections.
-- wait_count - The total number of connections waited for.
-- wait_duration - The total time blocked waiting for a new connection.
-- max_idle_closed - The total number of connections closed due to max_idle.
-- max_lifetime_closed - The total number of connections closed due to max_lifetime.
+* max_open - Maximum number of open connections to the database.
+* connections - The number of established connections both in use and idle.
+* in_use - The number of connections currently in use.
+* idle - The number of idle connections.
+* wait_count - The total number of connections waited for.
+* wait_duration - The total time blocked waiting for a new connection.
+* max_idle_closed - The total number of connections closed due to max_idle.
+* max_lifetime_closed - The total number of connections closed due to max_lifetime.
+* max_lifetime_idle_closed - The total number of connections closed due to max_idle_lifetime.
 
 ## Compatibility
 
