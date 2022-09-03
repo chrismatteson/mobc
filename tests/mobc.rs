@@ -628,7 +628,7 @@ fn test_set_conn_max_lifetime() {
             Ok(conn)
         }
     }
-    let handler = Handler;
+    let handler = Handler { num: val };
     rt.block_on(async {
         let pool = Pool::builder()
             .max_open(5)
