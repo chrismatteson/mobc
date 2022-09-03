@@ -505,7 +505,7 @@ impl<M: Manager> Pool<M> {
                 permit.forget();
                 return Ok(conn);
             } else {
-                println!("507")
+                println!("507");
                 conn.close(&mut internals);
             }
         }
